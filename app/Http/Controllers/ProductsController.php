@@ -6,6 +6,7 @@ use App\Repositories\ProductRepository;
 use Exception;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
+use OpenApi\Annotations as OA;
 
 class ProductsController extends Controller
 {
@@ -16,7 +17,22 @@ class ProductsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/products",
+     *     tags={"products"},
+     *     summary="Get All products",
+     *     description="Retrieve a list of all products",
+     *     operationId="index",
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Product"))
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     * )
      */
     public function index()
     {
